@@ -9,7 +9,7 @@ red = redis.Redis(host='localhost', port=6379, db=0)
 @app.route('/') 
 
 def home():
-    return render_template('index.html', title='fabio')
+    return render_template('index.html', title='Leo')
 
 @app.route('/enviar', methods=['POST'])
 
