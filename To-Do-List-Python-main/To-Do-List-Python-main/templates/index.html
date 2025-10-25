@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+    <title>Home</title>
+</head>
+<body class="bg-blue-600">
+
+ <form action="enviar" method="post" class="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 space-y-4">
+    <h2 class="text-2xl font-semibold text-gray-800 text-center">Adicione uma tarefa</h2>
+    
+    <div>
+      <input type="text" name="titulo" placeholder="Título" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <div>
+      <input type="text" name="descricao" placeholder="Descrição" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+  
+    <div class="text-center">
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Enviar</button>
+    </div>
+  </form>
+
+<br>
+<table class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+  <thead class="bg-gray-200">
+
+    <tr>
+      <td colspan="6" class="px-2 py-4 text-center bg-gray-100">
+<div class="flex justify-center gap-2 items-center">
+        <form action="/buscarId" method="post">
+        <input type="text" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="digite um id:" name="id">
+        <button class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+          Encontrar
+        </button>
+        </form>
+
+        <form action="buscar" method="get">
+
+ <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+          Encontrar todos
+        </button>
+</form>
+</div>  
+      </td>
+    </tr>
+
+    <tr>
+      <th class="px-4 py-2 text-left text-gray-700">ID</th>
+      <th class="px-4 py-2 text-left text-gray-700">Título</th>
+      <th class="px-4 py-2 text-left text-gray-700">Descrição</th>
+      <th class="px-4 py-2 text-left text-gray-700">Data</th>
+      <th class="px-4 py-2 text-left text-gray-700">Status</th>
+      <th class="px-4 py-2 text-center text-gray-700">Ações</th>
+    </tr>
+
+    
+
+  </thead>
+  <tbody>
+    
+    {% for r in registro %}
+    <tr class="border-b hover:bg-gray-50">
+      <td class="px-4 py-2">{{ r.id }}</td>
+      <td class="px-4 py-2">{{ r.titulo }}</td>
+      <td class="px-4 py-2">{{ r.descricao }}</td>
+      <td class="px-4 py-2">{{ r.data }}</td>
+      <td class="px-4 py-2">{{ r.status }}</td>
+      <td class="px-4 py-2 flex justify-center gap-2">
+        <form action="/editar/{{ r.id }}" method="get">
+          <button class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transition">Editar</button>
+        </form>
+        <form action="/excluir/{{ r.id }}" method="get">
+          <input type="hidden" name="id" value="{{ r.id }}">
+          <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">Deletar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>

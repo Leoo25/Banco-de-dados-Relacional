@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-600">
+    
+<form action="/editarDados/{{ dado.id }}" method="post" class="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 space-y-4">
+    <h2 class="text-2xl font-semibold text-gray-800 text-center">Edite a tarefa</h2>
+
+<input name="titulo" value="{{ dado.titulo }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+<input type="text" name="descricao" value="{{ dado.descricao }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+  <div>
+<select name="status" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+     {% set opcoes = ["Concluída", "Pendente", "Em andamento"] %}
+     <option value="{{dado.status}}" selected>{{dado.status}}</option>
+        {% for s in opcoes %}
+
+        {% if s != dado.status %}
+           <option value="{{ s }}">{{ s }}</option>
+              {% endif %}
+        {% endfor %}
+</select>
+
+    </div>
+
+<div class="text-center">
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Atualizar</button>
+    </div>
+</form>
+
+ 
+</body>
+</html>
