@@ -14,8 +14,6 @@ def home():
 @app.route('/enviar', methods=['POST'])
 
 
-# Adicionar dados
-# ************************************************
 def enviar():
 
     id = red.incr('id')
@@ -32,10 +30,7 @@ def enviar():
     
     return redirect('/')
 
-# **********************************************
 
-# Buscar dados
-# **********************************************
 @app.route('/buscar', methods=['GET'])
 def buscar():
     registro = []
@@ -48,14 +43,11 @@ def buscar():
         dadoDecodificado['id'] = chave.decode().split(':')[1]
         registro.append(dadoDecodificado)
 
-        # só pra exibir os ids de ordem decrescente XD
+        
         registro = sorted(registro, key=lambda x: int(x['id']), reverse=True)
 
     return render_template('index.html', registro=registro)
-# **********************************************
 
-# Mover dados para outra pagina
-# **********************************************
 @app.route('/editar/<id>', methods=['GET'])
 
 def editar(id):
@@ -64,11 +56,10 @@ def editar(id):
     dado_decod = {k.decode(): v.decode() for k, v in dado.items()}
     dado_decod['id'] = id
     return render_template('editar.html', dado=dado_decod)
-# **********************************************
 
 
-# Atualizar dados
-# **********************************************
+
+
 @app.route('/editarDados/<id>', methods=['POST'])
 
 def atualizarDados(id):
@@ -81,22 +72,14 @@ def atualizarDados(id):
     red.hset(f'tarefa:{id}', 'status', status)
 
     return redirect('/')
-#************************************************
 
-
-# Excluir dados
-# **********************************************
 @app.route('/excluir/<id>', methods=['GET'])
 
 def excluir(id):
     red.delete(f'tarefa:{id}')
     return redirect('/')
 
-# **********************************************
 
-
-# Buscar dados por ID
-# **********************************************
 @app.route('/buscarId', methods=['POST'])
 
 def buscarId():
@@ -106,7 +89,7 @@ def buscarId():
     dado_decod = {k.decode(): v.decode() for k, v in dado.items()}
     dado_decod['id'] = id
     return render_template('index.html', registro=[dado_decod])
-# ***********************************************
+
 
 if __name__ == '__main__':
     app.run(debug=True)
