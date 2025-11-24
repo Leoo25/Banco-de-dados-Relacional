@@ -42,8 +42,7 @@ def buscar():
 
         dadoDecodificado['id'] = chave.decode().split(':')[1]
         registro.append(dadoDecodificado)
-
-        
+  
         registro = sorted(registro, key=lambda x: int(x['id']), reverse=True)
 
     return render_template('index.html', registro=registro)
@@ -56,8 +55,6 @@ def editar(id):
     dado_decod = {k.decode(): v.decode() for k, v in dado.items()}
     dado_decod['id'] = id
     return render_template('editar.html', dado=dado_decod)
-
-
 
 
 @app.route('/editarDados/<id>', methods=['POST'])
